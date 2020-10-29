@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &945462069359481153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 945462069359481159}
+  - component: {fileID: 945462069359481152}
+  m_Layer: 0
+  m_Name: Pref_PathManger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &945462069359481159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945462069359481153}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &945462069359481152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945462069359481153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0534f4a52c8b0cb458ae89152757d64d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridTile: {fileID: 799005806065769285, guid: 5a38d9bb669e04549834e299de5d3f3a, type: 3}
+  obstacle: {fileID: 5261953492831483650, guid: 2607fa9d271ad224d9605b2f41a11164,
+    type: 3}
+  player: {fileID: 5900811121189697806, guid: 22e48e925f0a70849943707fe7e8e3e8, type: 3}
+  target: {fileID: 5347363503126064268, guid: 154e1fb826990d5488c1e1de8deb61b7, type: 3}
+  xLength: 25
+  zLength: 25
+  obstacleAmount: 200
+  maxSpawnVerticalTileAmount: 5
+  maxSpawnObstacleAmount: 5
+  maxColorPathAmount: 2
+  timeDelay: 0.05
+  playerSpawnTile: {fileID: 0}
+  targetSpawnTile: {fileID: 0}
+  playerSpawned: 0
+  targetSpawned: 0
+  pathDone: 0
+  tileParent: {fileID: 0}
+  obstacleParent: {fileID: 0}
+  goalParent: {fileID: 0}
+  gridList: []
