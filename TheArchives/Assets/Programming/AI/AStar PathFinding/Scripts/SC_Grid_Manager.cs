@@ -165,7 +165,7 @@ public class SC_Grid_Manager : MonoBehaviour
 
     public void MakeNewPath()
     {
-        SC_Pathfinder path = new SC_Pathfinder();
+        SC_Astar_Pathfinder path = new SC_Astar_Pathfinder();
         StartCoroutine(path.StartSearch(playerSpawnTile, targetSpawnTile));
     }
 

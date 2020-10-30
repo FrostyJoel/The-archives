@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SC_Pathfinder
+public class SC_Astar_Pathfinder
 {
     public List<SC_Gridtile> todo = new List<SC_Gridtile>();
     public List<SC_Gridtile> done = new List<SC_Gridtile>();

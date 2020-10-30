@@ -121,6 +121,65 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &405908723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 405908725}
+  - component: {fileID: 405908724}
+  m_Layer: 0
+  m_Name: RoomPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &405908724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405908723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd7a629a108a5b4eadb32c2d7eaf105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: 2
+    prefab:
+    - {fileID: 297073304919272373, guid: fbd487c45ab2cdc40ba3e64da86e8345, type: 3}
+    - {fileID: 2116695239720708630, guid: b0b31debe3bf7ee4f9ef2b4c229a919d, type: 3}
+    - {fileID: 2661901783682184194, guid: 202ca0a58018ded49bbae9b1f7a90e87, type: 3}
+    - {fileID: 5119443955146086379, guid: 9a8495f4c0df42b4e9d0adeb04890724, type: 3}
+  - tag: 1
+    prefab:
+    - {fileID: 6707083054457901248, guid: 51423f170d2d7e643b16e309910f26fc, type: 3}
+  - tag: 0
+    prefab:
+    - {fileID: 2096410673083253621, guid: ece16ba7d8e75d645b129baca5e38842, type: 3}
+    - {fileID: 3155827181438389100, guid: 26d0bc46b36862946aae13ea0420ab9e, type: 3}
+    - {fileID: 8552914424950432439, guid: 000a7f44f7a5cfe4ca2c09cd88e06c35, type: 3}
+    - {fileID: 3649633782507802868, guid: dc169ee1e39e513429bd4c06cd414dc7, type: 3}
+--- !u!4 &405908725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405908723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.2210302, y: 8.009838, z: -3.1680741}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &712920617
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,3 +355,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1898375316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1898375317}
+  - component: {fileID: 1898375318}
+  m_Layer: 0
+  m_Name: RoomManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1898375317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898375316}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.2210302, y: 8.009838, z: -3.1680741}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1898375318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898375316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41eed7808da186e4faaa9056d9c83de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startRoomType: 1
+  sRoomRots:
+    presetRots:
+    - axisRot: 0
+      rot: {x: 0, y: 0, z: 0}
+    - axisRot: 1
+      rot: {x: 0, y: 180, z: 0}
+    - axisRot: 2
+      rot: {x: 0, y: 90, z: 0}
+    - axisRot: 3
+      rot: {x: 0, y: -90, z: 0}
+  mainWall: {fileID: 8847665219547034218, guid: d927190530d10464cbee460279143a1b,
+    type: 3}
+  overlapLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  attachPointsLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  spawnDelay: 0.1
+  startCreation: 0
+  maxAmountOfRooms: 10
+  allspawnedRooms: []
+  allFinishedSpawningRooms: []
+  currRoomToCheck: {fileID: 0}
+  customDungeonParent: {fileID: 0}
+  currentAmountOfRooms: 0
