@@ -24,7 +24,9 @@ public class SC_RoomManager : MonoBehaviour
     public SC_Room currRoomToCheck;
     public GameObject customDungeonParent;
     public int currentAmountOfRooms;
-    bool dungeonDone;
+    public bool dungeonDone;
+    public bool creatingDungeon;
+
 
 
     private void Awake()
@@ -40,26 +42,16 @@ public class SC_RoomManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (startCreation)
-        {
-            startCreation = false;
-            SC_RoomPooler.single.CreatePools();
-            CreateNewDungeon();
-        }
-    }
-
-    public void ResetManager()
-    {
-        CreateNewDungeon();
-    }
-
     public void CreateNewDungeon()
     {
+        if (creatingDungeon) 
+        {
+            Debug.Log("Already Creating a New Dungeon");
+            return; 
+        }
+        creatingDungeon = true;
         currRoomToCheck = null;
         currentAmountOfRooms = 0;
-        dungeonDone = false;
         allspawnedRooms.Clear();
         allFinishedSpawningRooms.Clear();
 
@@ -108,7 +100,7 @@ public class SC_RoomManager : MonoBehaviour
                 //allspawnedRooms.Remove(allspawnedRooms[i]);
             }
         }
-        if (!dungeonDone)
+        if (creatingDungeon)
         {
             if (!IsInvoking(nameof(RestartDungeon)))
             {
@@ -201,7 +193,7 @@ public class SC_RoomManager : MonoBehaviour
         {
             CancelInvoke(nameof(RestartDungeon));
             Debug.Log("Dungeon Finished");
-            dungeonDone = true;
+            creatingDungeon = true;
             foreach (SC_Room test in allspawnedRooms)
             {
                 foreach (AttachPoint points in test.attachPoints)
@@ -214,7 +206,6 @@ public class SC_RoomManager : MonoBehaviour
                     }
                 }
             }
-            SC_GameManager.single.GetRandomRoomToSpawnEnemies(allFinishedSpawningRooms);
         }
 
     }

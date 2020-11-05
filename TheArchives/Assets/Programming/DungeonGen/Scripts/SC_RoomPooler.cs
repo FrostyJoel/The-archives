@@ -28,6 +28,7 @@ public class SC_RoomPooler : MonoBehaviour
 
     public List<Pool> pools = new List<Pool>();
     public Dictionary<AvailableSlots, Queue<GameObject>> poolDictionary = new Dictionary<AvailableSlots, Queue<GameObject>>();
+    public bool alreadyCreated;
 
     public void ResetManager()
     {
@@ -37,7 +38,10 @@ public class SC_RoomPooler : MonoBehaviour
 
     public void CreatePools()
     {
-       
+        if (alreadyCreated)
+        {
+            return;
+        }
         GameObject poolParent = new GameObject("PoolParent");
 
         foreach (Pool pool in pools)
@@ -52,7 +56,8 @@ public class SC_RoomPooler : MonoBehaviour
                 for (int i = 0; i < roomTest.attachPoints.Length; i++)
                 {
                     AttachPoint currentAttachPoint = roomTest.attachPoints[i];
-                    GameObject wall = Instantiate(SC_RoomManager.single.mainWall, currentAttachPoint.point);
+                    Vector3 offset = new Vector3(0, 0.5f, 0);
+                    GameObject wall = Instantiate(SC_RoomManager.single.mainWall,currentAttachPoint.point);
                     currentAttachPoint.off = currentAttachPoint.point.localPosition;
                     currentAttachPoint.wall = wall;
                     wall.SetActive(false);
@@ -63,6 +68,7 @@ public class SC_RoomPooler : MonoBehaviour
             }
             poolDictionary.Add(pool.tag, roomPool);
         }
+        alreadyCreated = true;
     }
 
     private void RandomizeRoomPrefabs(Pool pool)
