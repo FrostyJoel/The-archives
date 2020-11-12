@@ -36,13 +36,15 @@ public class SC_Grid_Manager : MonoBehaviour
 
     [Header("HideInInspector")]
     public float timeDelay;
+    public float minDisBetweenTargetAndPlayer;
 
     public SC_Gridtile playerSpawnTile;
     public SC_Gridtile targetSpawnTile;
 
     public bool playerSpawned;
     public bool targetSpawned;
-    public bool pathDone;
+    public bool createingPath;
+    public bool gridReady;
 
     public GameObject tileParent;
     public GameObject obstacleParent;
@@ -121,8 +123,8 @@ public class SC_Grid_Manager : MonoBehaviour
                 yield return new WaitForSeconds(timeDelay);
             }
         }
-
-        StartCoroutine(RandomSpawns());
+        gridReady = true;
+        Debug.Log("Grid Ready To Be Used");
     }
 
     public IEnumerator RandomSpawns()
@@ -130,14 +132,12 @@ public class SC_Grid_Manager : MonoBehaviour
         int maxSpawnAmount = 0;
         for (int ib = 0; ib < obstacleAmount; ib++)
         {
-            Debug.Log("RandomObstacle");
             int randomIndex = Random.Range(0, gridList.Count);
             if (!gridList[randomIndex].spawnedOn)
             {
                 SC_Gridtile currentTile = gridList[randomIndex];
                 Instantiate(obstacle, new Vector3(currentTile.transform.position.x, 0.5f, currentTile.transform.position.z), obstacle.transform.rotation, obstacleParent.transform);
                 currentTile.spawnedOn = true;
-                Debug.Log("Hey i'm Tree");
             }
             if (ib == maxSpawnAmount + maxSpawnObstacleAmount)
             {
@@ -157,8 +157,7 @@ public class SC_Grid_Manager : MonoBehaviour
         }
 
         if (playerSpawned && targetSpawned)
-        {
-            print("Both Spawned");
+        { 
             MakeNewPath();
         }
     }
@@ -185,27 +184,35 @@ public class SC_Grid_Manager : MonoBehaviour
         int randomIndex = Random.Range(0, gridList.Count);
         if (!gridList[randomIndex].spawnedOn && gridList[randomIndex] != playerSpawnTile)
         {
-            targetSpawnTile = gridList[randomIndex];
-            Instantiate(target, new Vector3(targetSpawnTile.transform.position.x, 0.5f, targetSpawnTile.transform.position.z), target.transform.rotation, goalParent.transform);
-            targetSpawned = true;
+            float disToPlayer = Vector3.Distance(playerSpawnTile.transform.position, gridList[randomIndex].transform.position);
+            if(disToPlayer > minDisBetweenTargetAndPlayer)
+            {
+                targetSpawnTile = gridList[randomIndex];
+                Instantiate(target, new Vector3(targetSpawnTile.transform.position.x, 0.5f, targetSpawnTile.transform.position.z), target.transform.rotation, goalParent.transform);
+                targetSpawned = true;
+            }   
         }
     }
 
-    private void Update()
+    public void CreateNewPath()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (!gridReady)
         {
-            if (pathDone)
-            {
-                ResetManager();
-                RestartPath();
-            }
-            else
-            {
-                Debug.Log("Please wait for PathToFinish");
-            }
+            Debug.Log("Please wait for Grid To Finish");
+            return;
+        }
+        if (!createingPath)
+        {
+            createingPath = true;
+            ResetManager();
+            RestartPath();
+        }
+        else
+        {
+            Debug.Log("Please wait for Path To Finish");
         }
     }
+
     public void ResetManager()
     {
         DestroyParent(obstacleParent);
@@ -219,8 +226,8 @@ public class SC_Grid_Manager : MonoBehaviour
         playerSpawned = false;
         targetSpawnTile = null;
         targetSpawned = false;
-        pathDone = false;
     }
+
     public void RestartPath()
     {
         obstacleParent = SpawnParent("ObstacleParent");

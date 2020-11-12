@@ -57,7 +57,7 @@ public class SC_Astar_Pathfinder
                 if (smallestDis == startPos)
                 {
                     path.Reverse();
-                    SC_Grid_Manager.single.pathDone = true;
+                    SC_Grid_Manager.single.createingPath = false;
                     break;
                 }
 
@@ -117,7 +117,7 @@ public class SC_Astar_Pathfinder
         }
         if (todo.Count <= 0)
         {
-            SC_Grid_Manager.single.pathDone = true;
+            SC_Grid_Manager.single.createingPath = true;
             Debug.LogError("No Target");
         }
     }
