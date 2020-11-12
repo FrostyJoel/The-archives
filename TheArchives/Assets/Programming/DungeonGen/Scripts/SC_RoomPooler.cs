@@ -35,13 +35,17 @@ public class SC_RoomPooler : MonoBehaviour
         poolDictionary.Clear();
         CreatePools();
     }
+    public void CreatePoolButton()
+    {
+        if (!alreadyCreated)
+        {
+            CreatePools();
+        }
+    }
 
     public void CreatePools()
     {
-        if (alreadyCreated)
-        {
-            return;
-        }
+       
         GameObject poolParent = new GameObject("PoolParent");
 
         foreach (Pool pool in pools)

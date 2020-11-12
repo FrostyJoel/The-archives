@@ -10,6 +10,7 @@ public class SC_Room : MonoBehaviour
     public BoxCollider roomCollider;
     public AvailableSlots roomType;
     public Transform propsGeo;
+    public GameObject[] floors;
 
     [HideInInspector]
     public List<GameObject> enemiesInRoom = new List<GameObject>();
@@ -25,33 +26,6 @@ public class SC_Room : MonoBehaviour
     public bool isChecked;
     [HideInInspector]
     public MeshRenderer[] meshRenderers;
-
-    //private void OnDrawGizmosSelected()
-    //{
-    //    if (attachPoints.Length > 0)
-    //    {
-    //        foreach (AttachPoint attachPoint in attachPoints)
-    //        {
-    //            Gizmos.color = Color.red;
-    //            Gizmos.DrawWireCube(attachPoint.attachCollider.transform.position + attachPoint.attachCollider.center, attachPoint.attachCollider.size * 2f);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("No Attachpoints Assigned to " + gameObject.name);
-    //    }
-
-    //    if (roomCollider)
-    //    {
-    //        Gizmos.matrix = transform.worldToLocalMatrix;
-    //        Gizmos.color = Color.red;
-    //        Gizmos.DrawWireCube(roomCollider.transform.position + roomCollider.center, roomCollider.size);
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("No RoomCollider Assigned to " + gameObject.name);
-    //    }
-    //}
 
     public void MakeEverythingStatic()
     {

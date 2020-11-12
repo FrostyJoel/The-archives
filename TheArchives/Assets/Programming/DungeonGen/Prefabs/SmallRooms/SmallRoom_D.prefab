@@ -828,6 +828,8 @@ MonoBehaviour:
   roomCollider: {fileID: 3667380020562323737}
   roomType: 2
   propsGeo: {fileID: 0}
+  floors:
+  - {fileID: 4759418459389538757}
   enemiesInRoom: []
   hasEnemies: 0
   spawnablePosAndRots: []

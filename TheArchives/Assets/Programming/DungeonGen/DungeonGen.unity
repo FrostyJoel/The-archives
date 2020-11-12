@@ -215,7 +215,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1898375318}
-        m_MethodName: CreateNewDungeon
+        m_MethodName: CreateNewDungeonButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -810,3 +810,5 @@ MonoBehaviour:
   currRoomToCheck: {fileID: 0}
   customDungeonParent: {fileID: 0}
   currentAmountOfRooms: 0
+  dungeonDone: 0
+  creatingDungeon: 0

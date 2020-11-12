@@ -42,13 +42,20 @@ public class SC_RoomManager : MonoBehaviour
         }
     }
 
+    public void CreateNewDungeonButton()
+    {
+        if (!creatingDungeon)
+        {
+            CreateNewDungeon();
+        }
+        else
+        {
+            Debug.Log("Creating New Dungeon");
+        }
+    }
+
     public void CreateNewDungeon()
     {
-        if (creatingDungeon) 
-        {
-            Debug.Log("Already Creating a New Dungeon");
-            return; 
-        }
         creatingDungeon = true;
         currRoomToCheck = null;
         currentAmountOfRooms = 0;
@@ -300,11 +307,21 @@ public class SC_RoomManager : MonoBehaviour
 
         return canBeAttached;
     }
+
     public void SpawnRoom(GameObject room)
     {
         //Debug.Log("Spawning");
         GameObject newRoom = Instantiate(room);
         SC_Room newRoomScript = newRoom.GetComponent<SC_Room>();
+
+        if (newRoomScript.floors.Length > 0)
+        {
+            foreach (GameObject floor in newRoomScript.floors)
+            {
+                Color randomColor = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
+                floor.GetComponent<Renderer>().material.color = randomColor;
+            }
+        }
 
         newRoom.SetActive(true);
         newRoomScript.MakeEverythingStatic();
@@ -324,6 +341,7 @@ public class SC_RoomManager : MonoBehaviour
         room.SetActive(false);
         SetAttachment(newRoomScript);
     }
+
     public void SetAttachment(SC_Room ownerRoom)
     {
         foreach (AttachPoint attach in ownerRoom.attachPoints)
