@@ -34,7 +34,6 @@ public class SC_Astar_Pathfinder
             done.Add(smallestDis);
             done.Add(temp);
             todo.Remove(temp);
-            int maxAmount = 0;
 
             if (smallestDis == endPos)
             {
@@ -47,16 +46,13 @@ public class SC_Astar_Pathfinder
                         path.Add(done[ic]);
                         done[ic].SetColor(Color.blue);
                         smallestDis = smallestDis.previousTile;
-                        if (ic == maxAmount + SC_Grid_Manager.single.maxColorPathAmount)
-                        {
-                            maxAmount = ic;
-                            yield return new WaitForSeconds(SC_Grid_Manager.single.timeDelay);
-                        }
+                        yield return new WaitForSeconds(SC_Grid_Manager.single.timeDelayBetweenSpawns);
                     }
                 } 
                 if (smallestDis == startPos)
                 {
                     path.Reverse();
+                    Debug.Log("Path Finished");
                     SC_Grid_Manager.single.createingPath = false;
                     break;
                 }
@@ -117,8 +113,8 @@ public class SC_Astar_Pathfinder
         }
         if (todo.Count <= 0)
         {
-            SC_Grid_Manager.single.createingPath = true;
-            Debug.LogError("No Target");
+            SC_Grid_Manager.single.createingPath = false;
+            Debug.LogError("Path Could not be Created");
         }
     }
 }

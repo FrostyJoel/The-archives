@@ -32,10 +32,9 @@ public class SC_Grid_Manager : MonoBehaviour
     [Header("MaxSpawn")]
     public int maxSpawnVerticalTileAmount;
     public int maxSpawnObstacleAmount;
-    public int maxColorPathAmount;
 
     [Header("HideInInspector")]
-    public float timeDelay;
+    public float timeDelayBetweenSpawns;
     public float minDisBetweenTargetAndPlayer;
 
     public SC_Gridtile playerSpawnTile;
@@ -52,6 +51,8 @@ public class SC_Grid_Manager : MonoBehaviour
 
     public SC_Gridtile[,] grid;
     public List<SC_Gridtile> gridList = new List<SC_Gridtile>();
+
+    private int maxTries = 10;
 
     void Start()
     {
@@ -117,10 +118,10 @@ public class SC_Grid_Manager : MonoBehaviour
                     if (ia == maxSpawnAmount + maxSpawnVerticalTileAmount)
                     {
                         maxSpawnAmount = ia;
-                        yield return new WaitForSeconds(timeDelay);
+                        yield return new WaitForSeconds(timeDelayBetweenSpawns);
                     }
                 }
-                yield return new WaitForSeconds(timeDelay);
+                yield return new WaitForSeconds(timeDelayBetweenSpawns);
             }
         }
         gridReady = true;
@@ -142,18 +143,41 @@ public class SC_Grid_Manager : MonoBehaviour
             if (ib == maxSpawnAmount + maxSpawnObstacleAmount)
             {
                 maxSpawnAmount = ib;
-                yield return new WaitForSeconds(timeDelay);
+                yield return new WaitForSeconds(timeDelayBetweenSpawns);
             }
         }
+        int playerTries = 0;
 
         while (!playerSpawned)
         {
-            SpawnPlayer();
+            if (playerTries < maxTries)
+            {
+                playerTries++;
+                SpawnPlayer();
+            }
+            else
+            {
+                Debug.Log("Player Could Not Spawn");
+                createingPath = false;
+                yield break;
+            }
         }
+
+        int targetTries = 0;
 
         while (!targetSpawned)
         {
-            SpawnTarget();
+            if (targetTries < maxTries)
+            {
+                targetTries++;
+                SpawnTarget();
+            }
+            else
+            {
+                Debug.Log("Target Could Not Spawn");
+                createingPath = false;
+                yield break;
+            }
         }
 
         if (playerSpawned && targetSpawned)
