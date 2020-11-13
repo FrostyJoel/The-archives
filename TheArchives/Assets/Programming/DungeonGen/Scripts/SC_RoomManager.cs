@@ -200,7 +200,7 @@ public class SC_RoomManager : MonoBehaviour
         {
             CancelInvoke(nameof(RestartDungeon));
             Debug.Log("Dungeon Finished");
-            creatingDungeon = true;
+            creatingDungeon = false;
             foreach (SC_Room test in allspawnedRooms)
             {
                 foreach (AttachPoint points in test.attachPoints)

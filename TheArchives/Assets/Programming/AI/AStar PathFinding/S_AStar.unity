@@ -738,26 +738,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 945462069359481152, guid: 1f552f26f0ffa264890ed65df3225488,
-        type: 3}
-      propertyPath: obstacleAmount
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 945462069359481152, guid: 1f552f26f0ffa264890ed65df3225488,
-        type: 3}
-      propertyPath: xLength
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 945462069359481152, guid: 1f552f26f0ffa264890ed65df3225488,
-        type: 3}
-      propertyPath: zLength
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 945462069359481152, guid: 1f552f26f0ffa264890ed65df3225488,
-        type: 3}
-      propertyPath: minDisBetweenTargetAndPlayer
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 945462069359481153, guid: 1f552f26f0ffa264890ed65df3225488,
         type: 3}
       propertyPath: m_Name
