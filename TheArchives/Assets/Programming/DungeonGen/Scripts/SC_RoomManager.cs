@@ -6,27 +6,35 @@ using UnityEngine;
 public class SC_RoomManager : MonoBehaviour
 {
     public static SC_RoomManager single;
-
+    [Header("StarterRoomTag")]
     public AvailableSlots startRoomType;
+    [Header("Predetermined Rotations")]
     public StandardRoomRots sRoomRots;
-
-    [Space]
+    [Header("Dungeon Settings")]
+    public float spawnDelay;
+    public float restartTimer;
+    public int maxAmountOfRooms;
+    [Header("WallPrefab & Layers")]
     public GameObject mainWall;
     public LayerMask overlapLayer;
     public LayerMask attachPointsLayer;
-    public float spawnDelay;
 
-    [Header("HideInInspector")]
+    [HideInInspector]
     public bool startCreation;
-    public int maxAmountOfRooms;
+    [HideInInspector]
     public List<SC_Room> allspawnedRooms = new List<SC_Room>();
+    [HideInInspector]
     public List<GameObject> allFinishedSpawningRooms = new List<GameObject>();
+    [HideInInspector]
     public SC_Room currRoomToCheck;
+    [HideInInspector]
     public GameObject customDungeonParent;
+    [HideInInspector]
     public int currentAmountOfRooms;
+    [HideInInspector]
     public bool dungeonDone;
+    [HideInInspector]
     public bool creatingDungeon;
-
 
 
     private void Awake()
@@ -56,7 +64,6 @@ public class SC_RoomManager : MonoBehaviour
 
     public void CreateNewDungeon()
     {
-        creatingDungeon = true;
         currRoomToCheck = null;
         currentAmountOfRooms = 0;
         allspawnedRooms.Clear();
@@ -66,6 +73,7 @@ public class SC_RoomManager : MonoBehaviour
         {
             DestroyDungeon();
         }
+        creatingDungeon = true;
 
         customDungeonParent = new GameObject("Custom Dungeon");
 
@@ -82,6 +90,7 @@ public class SC_RoomManager : MonoBehaviour
 
     public void DestroyDungeon()
     {
+        CancelInvoke();
         Destroy(customDungeonParent);
     }
 
@@ -111,9 +120,16 @@ public class SC_RoomManager : MonoBehaviour
         {
             if (!IsInvoking(nameof(RestartDungeon)))
             {
-                Invoke(nameof(RestartDungeon), 5f);
+                Invoke(nameof(RestartDungeon),SpawnTimer());
             }
         }
+
+    }
+    public float SpawnTimer()
+    {
+        float timer;
+        timer = spawnDelay + restartTimer;
+        return timer;
     }
 
     public void RestartDungeon()
@@ -158,6 +174,7 @@ public class SC_RoomManager : MonoBehaviour
                                                 rot = newRoomObject.transform.rotation,
                                                 room = newRoomObject
                                             };
+
                                             if (!newRoomPosAndRot.Contains(posAndRot))
                                             {
                                                 newRoomPosAndRot.Add(posAndRot);
@@ -191,7 +208,6 @@ public class SC_RoomManager : MonoBehaviour
 
             if (!roomToCheck.fullyAttached && CheckIfFullyAttached(roomToCheck))
             {
-                CancelInvoke(nameof(RestartDungeon));
                 roomToCheck.fullyAttached = true;
                 GetNextAvaialableRoom();
             }
@@ -251,7 +267,7 @@ public class SC_RoomManager : MonoBehaviour
              spawnroomAttachpointPos.y,
              spawnroomAttachpointPos.z * multi);
         }
-        
+
         spawnedRoom.transform.position = starterRoomAttachpoint.point.position + newOffset;
         //spawnedRoom.transform.position = starterRoom.transform.position + starterRoomAttachpoint.off + spawnedRoomAttachpoint.off;
     }
@@ -324,10 +340,12 @@ public class SC_RoomManager : MonoBehaviour
         }
 
         newRoom.SetActive(true);
-        newRoomScript.MakeEverythingStatic();
         newRoomScript.isChecker = false;
         newRoom.transform.SetParent(customDungeonParent.transform);
         allspawnedRooms.Add(newRoomScript);
+        
+        //For Testing
+        //room.SetActive(false);
 
         if (newRoomScript.roomType == AvailableSlots.Rooms)
         {
@@ -337,8 +355,7 @@ public class SC_RoomManager : MonoBehaviour
         {
             SC_GameManager.single.playerSpawnPos = newRoomScript.spawnPosEnemies.ToList();
         }
-
-        room.SetActive(false);
+        CancelInvoke(nameof(RestartDungeon));
         SetAttachment(newRoomScript);
     }
 

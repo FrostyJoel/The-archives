@@ -52,7 +52,6 @@ public class SC_Astar_Pathfinder
                 if (smallestDis == startPos)
                 {
                     path.Reverse();
-                    Debug.Log("Path Finished");
                     SC_Grid_Manager.single.createingPath = false;
                     break;
                 }

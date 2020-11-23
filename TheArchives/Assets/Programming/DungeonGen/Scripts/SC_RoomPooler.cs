@@ -28,6 +28,8 @@ public class SC_RoomPooler : MonoBehaviour
 
     public List<Pool> pools = new List<Pool>();
     public Dictionary<AvailableSlots, Queue<GameObject>> poolDictionary = new Dictionary<AvailableSlots, Queue<GameObject>>();
+
+    [HideInInspector]
     public bool alreadyCreated;
 
     public void ResetManager()
@@ -96,7 +98,8 @@ public class SC_RoomPooler : MonoBehaviour
 
         GameObject roomToSpawn = poolDictionary[tag].Dequeue();
 
-        roomToSpawn.SetActive(true);
+        //For Testing
+        //roomToSpawn.SetActive(true);
         roomToSpawn.transform.position = position;
         roomToSpawn.transform.rotation = rotation;
 

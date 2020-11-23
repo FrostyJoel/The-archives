@@ -3,13 +3,21 @@ using UnityEngine;
 
 public class SC_Room : MonoBehaviour
 {
-    public AttachPoint[] attachPoints;
+    [Header("Needed to work",order = 0)]
     [Space]
-    public int maxAmountOfEnemies;
-    public Transform[] spawnPosEnemies;
+    [Header("AttachPoint", order = 1)]
+    public AttachPoint[] attachPoints;
+    [Header("RoomProp")]
     public BoxCollider roomCollider;
     public AvailableSlots roomType;
+    [Header("Not Needed to work", order = 4)]
+    [Space]
+    [Header("Enemies", order = 5)]
+    public int maxAmountOfEnemies;
+    public Transform[] spawnPosEnemies;
+    [Header("Objects in room Parent")]
     public Transform propsGeo;
+    [Header("Coloring off Floor")]
     public GameObject[] floors;
 
     [HideInInspector]
@@ -26,28 +34,6 @@ public class SC_Room : MonoBehaviour
     public bool isChecked;
     [HideInInspector]
     public MeshRenderer[] meshRenderers;
-
-    public void MakeEverythingStatic()
-    {
-        for (int i = 0; i < meshRenderers.Length; i++)
-        {
-            meshRenderers[i].gameObject.isStatic = true;
-        }
-    }
-
-    private void Update()
-    {
-        if(hasEnemies)
-        {
-            foreach (AttachPoint wallPoint in attachPoints)
-            {
-                if (wallPoint.wall.activeSelf == true && !wallPoint.mapWall)
-                {
-                    wallPoint.wall.SetActive(false);
-                }
-            }
-        }
-    }
 }
 
 
