@@ -48,18 +48,20 @@ MonoBehaviour:
     type: 3}
   player: {fileID: 5900811121189697806, guid: 22e48e925f0a70849943707fe7e8e3e8, type: 3}
   target: {fileID: 5347363503126064268, guid: 154e1fb826990d5488c1e1de8deb61b7, type: 3}
-  xLength: 50
-  zLength: 50
-  obstacleAmount: 300
-  maxSpawnVerticalTileAmount: 5
-  maxSpawnObstacleAmount: 5
+  xLength: 25
+  zLength: 25
+  obstacleAmount: 150
+  maxSpawnVerticalTileAmount: 50
+  maxSpawnObstacleAmount: 10
+  colorPerAmount: 1
+  restartTimer: 1
   timeDelayBetweenSpawns: 0
-  minDisBetweenTargetAndPlayer: 25
+  minDisBetweenTargetAndPlayer: 12.5
   playerSpawnTile: {fileID: 0}
   targetSpawnTile: {fileID: 0}
   playerSpawned: 0
   targetSpawned: 0
-  createingPath: 0
+  creatingPath: 0
   gridReady: 0
   tileParent: {fileID: 0}
   obstacleParent: {fileID: 0}

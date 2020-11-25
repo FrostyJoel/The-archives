@@ -52,7 +52,8 @@ public class SC_Astar_Pathfinder
                 if (smallestDis == startPos)
                 {
                     path.Reverse();
-                    SC_Grid_Manager.single.createingPath = false;
+                    SC_Grid_Manager.single.creatingPath = false;
+                    SC_LoadingBar_AStar.single.DoneGenerating();
                     break;
                 }
 
@@ -112,7 +113,8 @@ public class SC_Astar_Pathfinder
         }
         if (todo.Count <= 0)
         {
-            SC_Grid_Manager.single.createingPath = false;
+            SC_Grid_Manager.single.creatingPath = false;
+            SC_LoadingBar_AStar.single.FailedToGenerate();
             Debug.LogError("Path Could not be Created");
         }
     }

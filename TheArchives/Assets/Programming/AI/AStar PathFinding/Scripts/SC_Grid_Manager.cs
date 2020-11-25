@@ -33,6 +33,12 @@ public class SC_Grid_Manager : MonoBehaviour
     public int maxSpawnVerticalTileAmount;
     public int maxSpawnObstacleAmount;
 
+    [Header("ColoringAmount")]
+    public int colorPerAmount;
+
+    [Header("TimerIfFailed")]
+    public float restartTimer;
+
     [Header("HideInInspector")]
     public float timeDelayBetweenSpawns;
     public float minDisBetweenTargetAndPlayer;
@@ -42,8 +48,9 @@ public class SC_Grid_Manager : MonoBehaviour
 
     public bool playerSpawned;
     public bool targetSpawned;
-    public bool createingPath;
+    public bool creatingPath;
     public bool gridReady;
+    bool colorSwap;
 
     public GameObject tileParent;
     public GameObject obstacleParent;
@@ -52,7 +59,7 @@ public class SC_Grid_Manager : MonoBehaviour
     public SC_Gridtile[,] grid;
     public List<SC_Gridtile> gridList = new List<SC_Gridtile>();
 
-    private int maxTries = 10;
+    private int maxTries = 25;
 
     void Start()
     {
@@ -103,21 +110,39 @@ public class SC_Grid_Manager : MonoBehaviour
     public IEnumerator GridSpawning()
     {
         grid = new SC_Gridtile[xLength, zLength];
-        int maxSpawnAmount = 0;
         while (gridList.Count < (xLength * zLength))
         {
             for (int i = 0; i < xLength; i++)
             {
+                int maxVerSpawnAmount = 0;
+                int switchNumber = 0;
                 for (int ia = 0; ia < zLength; ia++)
                 {
                     gridTile.xPos = i;
                     gridTile.zPos = ia;
                     grid[i, ia] = Instantiate(gridTile, new Vector3(i, 0f, ia), gridTile.transform.rotation, tileParent.transform);
+                    grid[i, ia].gameObject.isStatic = true;
                     gridList.Add(grid[i, ia]);
 
-                    if (ia == maxSpawnAmount + maxSpawnVerticalTileAmount)
+                    if (ia == switchNumber + colorPerAmount)
                     {
-                        maxSpawnAmount = ia;
+                        switchNumber = ia;
+                        colorSwap = !colorSwap;
+                    }
+                    //For The Checkers Effect
+
+                    //if (colorSwap)
+                    //{
+                    //    grid[i, ia].SetColor(Color.white);
+                    //}
+                    //else
+                    //{
+                    //    grid[i, ia].SetColor(Color.black);
+                    //}
+
+                    if (ia == maxVerSpawnAmount + maxSpawnVerticalTileAmount)
+                    {
+                        maxVerSpawnAmount = ia;
                         yield return new WaitForSeconds(timeDelayBetweenSpawns);
                     }
                 }
@@ -126,6 +151,7 @@ public class SC_Grid_Manager : MonoBehaviour
         }
         gridReady = true;
         Debug.Log("Grid Ready To Be Used");
+        yield break;
     }
 
     public IEnumerator RandomSpawns()
@@ -137,7 +163,8 @@ public class SC_Grid_Manager : MonoBehaviour
             if (!gridList[randomIndex].spawnedOn)
             {
                 SC_Gridtile currentTile = gridList[randomIndex];
-                Instantiate(obstacle, new Vector3(currentTile.transform.position.x, 0.5f, currentTile.transform.position.z), obstacle.transform.rotation, obstacleParent.transform);
+                GameObject obs = Instantiate(obstacle, new Vector3(currentTile.transform.position.x, 0.5f, currentTile.transform.position.z), obstacle.transform.rotation, obstacleParent.transform);
+                obs.isStatic = true;
                 currentTile.spawnedOn = true;
             }
             if (ib == maxSpawnAmount + maxSpawnObstacleAmount)
@@ -154,11 +181,12 @@ public class SC_Grid_Manager : MonoBehaviour
             {
                 playerTries++;
                 SpawnPlayer();
+                yield return new WaitForSeconds(0f);
             }
             else
             {
                 Debug.Log("Player Could Not Spawn");
-                createingPath = false;
+                creatingPath = false;
                 yield break;
             }
         }
@@ -171,11 +199,12 @@ public class SC_Grid_Manager : MonoBehaviour
             {
                 targetTries++;
                 SpawnTarget();
+                yield return new WaitForSeconds(0f);
             }
             else
             {
                 Debug.Log("Target Could Not Spawn");
-                createingPath = false;
+                creatingPath = false;
                 yield break;
             }
         }
@@ -184,6 +213,7 @@ public class SC_Grid_Manager : MonoBehaviour
         { 
             MakeNewPath();
         }
+        yield break;
     }
 
     public void MakeNewPath()
@@ -198,7 +228,8 @@ public class SC_Grid_Manager : MonoBehaviour
         if (!gridList[randomIndex].spawnedOn && gridList[randomIndex] != targetSpawnTile)
         {
             playerSpawnTile = gridList[randomIndex];
-            Instantiate(player, new Vector3(playerSpawnTile.transform.position.x, 0.75f, playerSpawnTile.transform.position.z), player.transform.rotation, goalParent.transform);
+            GameObject plr = Instantiate(player, new Vector3(playerSpawnTile.transform.position.x, 0.75f, playerSpawnTile.transform.position.z), player.transform.rotation, goalParent.transform);
+            plr.isStatic = true;
             playerSpawned = true;
         }
     }
@@ -212,7 +243,8 @@ public class SC_Grid_Manager : MonoBehaviour
             if(disToPlayer > minDisBetweenTargetAndPlayer)
             {
                 targetSpawnTile = gridList[randomIndex];
-                Instantiate(target, new Vector3(targetSpawnTile.transform.position.x, 0.5f, targetSpawnTile.transform.position.z), target.transform.rotation, goalParent.transform);
+                GameObject trg = Instantiate(target, new Vector3(targetSpawnTile.transform.position.x, 0.5f, targetSpawnTile.transform.position.z), target.transform.rotation, goalParent.transform);
+                trg.isStatic = true;
                 targetSpawned = true;
             }   
         }
@@ -225,9 +257,10 @@ public class SC_Grid_Manager : MonoBehaviour
             Debug.Log("Please wait for Grid To Finish");
             return;
         }
-        if (!createingPath)
+        if (!creatingPath)
         {
-            createingPath = true;
+            creatingPath = true;
+            SC_LoadingBar_AStar.single.StartGenerating();
             ResetManager();
             RestartPath();
         }

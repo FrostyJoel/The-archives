@@ -4,23 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SC_LoadingBar_DungeonGen : MonoBehaviour
+public class SC_LoadSettingsBase : MonoBehaviour
 {
-    public static SC_LoadingBar_DungeonGen single;
-
-    private void Awake()
-    {
-        if (single != null)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-        else
-        {
-            single = this;
-        }
-    }
-
     [Header("LoadingBarSettings")]
     public Slider loadingBar;
     public Image backGroundLoadingBar;
@@ -29,8 +14,10 @@ public class SC_LoadingBar_DungeonGen : MonoBehaviour
     [Header("LoadingBarColors")]
     public Color startColorBackGround;
     public Color startColorFill;
+
     public Color midWayColorBackGround;
     public Color midWayColorFill;
+
     public Color doneColorBackGround;
     public Color doneColorFill;
 
@@ -41,59 +28,41 @@ public class SC_LoadingBar_DungeonGen : MonoBehaviour
     [Header("Rest")]
     public TextMeshProUGUI currentStatetext;
     public Image spinning;
-    
 
-    // Start is called before the first frame update
-    void Start()
+    public void AssignColors()
     {
-        loadingBar.value = SC_RoomManager.single.currentAmountOfRooms;
-        loadingBar.maxValue = SC_RoomManager.single.maxAmountOfRooms;
+        startColorBackGround = new Color32(190, 50, 50, 255);
+        startColorFill = new Color32(230, 34, 34, 255);
+
+        midWayColorBackGround = new Color32(202, 111, 59, 255);
+        midWayColorFill = new Color32(255, 141, 77, 255);
+
+        doneColorBackGround = new Color32(50, 190, 50, 255);
+        doneColorFill = new Color32(81, 219, 81, 255);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (SC_RoomManager.single.creatingDungeon)
-        {
-            loadingBar.value = SC_RoomManager.single.currentAmountOfRooms;
-            if (loadingBar.value == 0)
-            {
-                ChangeColor(startColorBackGround, startColorFill);
-            }
-            else if (loadingBar.value > loadingBar.maxValue / 2)
-            {
-                ChangeColor(midWayColorBackGround, midWayColorFill);
-            }
-        }
-    }
-
-    private void ChangeColor(Color backGroundColor, Color fillColor)
+    protected void ChangeColor(Color backGroundColor, Color fillColor)
     {
         backGroundLoadingBar.color = backGroundColor;
         fillLoadingBar.color = fillColor;
     }
 
-    public void StartGenerating()
+    public virtual void StartGenerating()
     {
-        loadingBar.value = SC_RoomManager.single.currentAmountOfRooms;
-        StartCoroutine(SpinningAnimation());
-        StartCoroutine(GeneratingText());
+       
     }
 
-    public void DoneGenerating()
+    public virtual void DoneGenerating()
     {
         StopAllCoroutines();
-        loadingBar.value = SC_RoomManager.single.currentAmountOfRooms;
-
-        ChangeColor(doneColorBackGround, doneColorBackGround);
         currentStatetext.text = "Done Generating";
     }
 
-    public IEnumerator SpinningAnimation()
+    protected IEnumerator SpinningAnimationDungeon()
     {
         while (loadingBar.value < loadingBar.maxValue)
         {
-            if(spinning.transform.rotation == Quaternion.Euler(new Vector3(0, 0, -135)))
+            if (spinning.transform.rotation == Quaternion.Euler(new Vector3(0, 0, -135)))
             {
                 spinning.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
@@ -104,7 +73,7 @@ public class SC_LoadingBar_DungeonGen : MonoBehaviour
         }
     }
 
-    public IEnumerator GeneratingText()
+    protected IEnumerator GeneratingTextDungeon()
     {
         while (loadingBar.value < loadingBar.maxValue)
         {
@@ -118,4 +87,5 @@ public class SC_LoadingBar_DungeonGen : MonoBehaviour
             yield return new WaitForSeconds(textDelaySpeed);
         }
     }
+
 }
