@@ -32,8 +32,6 @@ public class SC_RoomManager : MonoBehaviour
     [HideInInspector]
     public int currentAmountOfRooms;
     [HideInInspector]
-    public bool dungeonDone;
-    [HideInInspector]
     public bool creatingDungeon;
 
 
@@ -58,7 +56,7 @@ public class SC_RoomManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Creating New Dungeon");
+            Debug.Log("Already creating New Dungeon");
         }
     }
 
@@ -73,7 +71,9 @@ public class SC_RoomManager : MonoBehaviour
         {
             DestroyDungeon();
         }
+
         creatingDungeon = true;
+        SC_LoadingBar_DungeonGen.single.StartGenerating();
 
         customDungeonParent = new GameObject("Custom Dungeon");
 
@@ -217,6 +217,7 @@ public class SC_RoomManager : MonoBehaviour
             CancelInvoke(nameof(RestartDungeon));
             Debug.Log("Dungeon Finished");
             creatingDungeon = false;
+            SC_LoadingBar_DungeonGen.single.DoneGenerating();
             foreach (SC_Room test in allspawnedRooms)
             {
                 foreach (AttachPoint points in test.attachPoints)
