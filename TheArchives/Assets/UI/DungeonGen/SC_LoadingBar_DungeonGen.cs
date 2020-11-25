@@ -58,4 +58,34 @@ public class SC_LoadingBar_DungeonGen : SC_LoadSettingsBase
         ChangeColor(doneColorBackGround, doneColorBackGround);
         base.DoneGenerating();
     }
+
+    protected IEnumerator SpinningAnimationDungeon()
+    {
+        while (loadingBar.value < loadingBar.maxValue)
+        {
+            if (spinning.transform.rotation == Quaternion.Euler(new Vector3(0, 0, -135)))
+            {
+                spinning.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            }
+            Vector3 currentRot = spinning.transform.rotation.eulerAngles;
+            Vector3 newRot = currentRot + new Vector3(0, 0, -45);
+            spinning.transform.rotation = Quaternion.Euler(newRot);
+            yield return new WaitForSeconds(spinningSpeed);
+        }
+    }
+
+    protected IEnumerator GeneratingTextDungeon()
+    {
+        while (loadingBar.value < loadingBar.maxValue)
+        {
+            currentStatetext.text = "Now Generating";
+            yield return new WaitForSeconds(textDelaySpeed);
+            currentStatetext.text = "Now Generating.";
+            yield return new WaitForSeconds(textDelaySpeed);
+            currentStatetext.text = "Now Generating..";
+            yield return new WaitForSeconds(textDelaySpeed);
+            currentStatetext.text = "Now Generating...";
+            yield return new WaitForSeconds(textDelaySpeed);
+        }
+    }
 }
