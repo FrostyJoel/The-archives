@@ -49,10 +49,10 @@ MonoBehaviour:
   player: {fileID: 5900811121189697806, guid: 22e48e925f0a70849943707fe7e8e3e8, type: 3}
   target: {fileID: 5347363503126064268, guid: 154e1fb826990d5488c1e1de8deb61b7, type: 3}
   xLength: 25
-  zLength: 25
+  zLength: 26
   obstacleAmount: 150
   maxSpawnVerticalTileAmount: 50
-  maxSpawnObstacleAmount: 10
+  maxSpawnObstacleAmount: 2
   colorPerAmount: 1
   restartTimer: 1
   timeDelayBetweenSpawns: 0

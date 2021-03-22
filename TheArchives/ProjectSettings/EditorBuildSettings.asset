@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Programming/AI/AStar PathFinding/S_AStar.unity
     guid: 84d7cd52b31ca5b4aa25186ae3879da7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Programming/DungeonGen/DungeonGen.unity
     guid: 345da1025ac73f6499857fec9ffa563a
   m_configObjects: {}

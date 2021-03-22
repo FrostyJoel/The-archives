@@ -1344,21 +1344,6 @@ PrefabInstance:
       propertyPath: maxSpawnHorizontalTileAmount
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 945462069359481152, guid: 1f552f26f0ffa264890ed65df3225488,
-        type: 3}
-      propertyPath: colorPerAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 945462069359481152, guid: 1f552f26f0ffa264890ed65df3225488,
-        type: 3}
-      propertyPath: xLength
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 945462069359481152, guid: 1f552f26f0ffa264890ed65df3225488,
-        type: 3}
-      propertyPath: zLength
-      value: 26
-      objectReference: {fileID: 0}
     - target: {fileID: 945462069359481153, guid: 1f552f26f0ffa264890ed65df3225488,
         type: 3}
       propertyPath: m_Name
