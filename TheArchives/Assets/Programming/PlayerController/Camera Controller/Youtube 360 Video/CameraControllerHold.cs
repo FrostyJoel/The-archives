@@ -44,6 +44,8 @@ namespace CameraController.Scripts.HoldButton
             rotationX = ClampAngle(rotationX, minimumX, maximumX);
             rotationY = ClampAngle(rotationY, minimumY, maximumY);
 
+            Debug.Log(rotationY);
+
             Quaternion xQuaternion = Quaternion.AngleAxis(rotationX, Vector3.up);
             Quaternion yQuaternion = Quaternion.AngleAxis(rotationY, Vector3.left);
 
